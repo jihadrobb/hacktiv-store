@@ -32,6 +32,14 @@ function errorHandler(err, req, res, next){
             statusCode = 400;
             errorMessage = 'Wrong Password';
             break;
+        case 'StockNotEnough':
+            statusCode = 400;
+            errorMessage = 'Product stock is not enough';
+            break;
+        case 'UserExist':
+            statusCode = 409;
+            errorMessage = 'User already exists';
+            break;
         default:
             statusCode = 500;
             errorMessage = err;
