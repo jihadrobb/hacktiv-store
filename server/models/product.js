@@ -55,10 +55,15 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {
           msg: 'Please input stock'
         },
-        min: {
-          args: 1,
-          msg: 'Minimum stock is 1'
-        }
+        // min: {
+        //   args: 0,
+        //   msg: 'Minimum stock is 0'
+        // },
+        minimalProduct(value) {
+          if(value < 0) {
+            throw new Error('Minimum stock is 0!');
+          }
+        },
       }
     },
   }, {

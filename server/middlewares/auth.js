@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Order } = require('../models');
 const jwt = require('jsonwebtoken');
 
 function authentication(req, res, next){
@@ -33,4 +33,18 @@ function authorization(req, res, next){
     .catch(err => next(err));
 }
 
-module.exports = { authentication, authorization };
+function orderAuthorization(req, res, next){
+    Order.findByPk(req.params.id)
+    .then(data => {
+        if(!data) {
+            throw { name: 'DataNotFound'};
+        } else if(data.UserId !== req.userData.id) {
+            throw { name: 'Unauthorized' };
+        } else {
+            next();
+        }
+    })
+    .catch(err => next(err));
+}
+
+module.exports = { authentication, authorization, orderAuthorization };
