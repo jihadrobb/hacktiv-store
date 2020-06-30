@@ -67,7 +67,7 @@ describe('VALIDATIONS POST /products', function() {
             name: '',
             image_url: '',
             price: 0,
-            stock: 0
+            stock: -1
         })
         .set('token', global.tokenAdmin)
         .expect('Content-Type', /json/)
@@ -80,7 +80,7 @@ describe('VALIDATIONS POST /products', function() {
                 'Please input name',
                 'Please input image url',
                 'Minimum price is 1000',
-                'Minimum stock is 1'
+                'Minimum stock is 0!'
               ]));
             done();
         })
@@ -248,7 +248,7 @@ describe('VALIDATIONS PUT /products', function() {
             name: '',
             image_url: '',
             price: 0,
-            stock: 0
+            stock: -1
         })
         .set('token', global.tokenAdmin)
         .expect('Content-Type', /json/)
@@ -261,7 +261,7 @@ describe('VALIDATIONS PUT /products', function() {
                 'Please input name',
                 'Please input image url',
                 'Minimum price is 1000',
-                'Minimum stock is 1'
+                'Minimum stock is 0!'
               ]));
             done();
         })
