@@ -7,5 +7,6 @@ router.post('/register', Controller.register);
 
 router.use(authentication)
 router.get('/checkout', Controller.checkout);
+router.get('/history', Controller.history);
 
 module.exports = router;
