@@ -14,7 +14,11 @@ class Controller {
         .catch(err => next(err));
     }
     static list(req, res, next){
-        Product.findAll()
+        Product.findAll({
+            order: [
+                ['id', 'ASC']
+            ]
+        })
         .then(data => res.status(200).json(data))
         .catch(err => next(err));
     }

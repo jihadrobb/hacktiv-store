@@ -1,4 +1,4 @@
-const { User, Order } = require('../models');
+const { User, Order, Product } = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 class Controller {
@@ -54,10 +54,14 @@ class Controller {
         .catch(err => next(err));
     }
     static history(req, res,next){
-        Order.findAll( { where: {
-            UserId: req.userData.id,
-            paid: true
-        }})
+        Order.findAll( { where: 
+            {
+                UserId: req.userData.id,
+                paid: true
+            },
+            include: [Product],
+            order: [ ['id', 'ASC'] ]
+        })
         .then(data => {
             res.status(200).json(data);
         })
