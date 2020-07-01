@@ -22,25 +22,33 @@ export default {
   props: ['product'],
   methods: {
       buyProduct() {
-        swal.fire({
-            title: this.product.name,
-            text: this.priceString(this.product),
-            imageUrl: this.product.image_url,
-            imageWidth: 200,
-            imageHeight: 200,
-            imageAlt: this.product.name,
-            input: 'text',
-            inputValue: 1,
-            confirmButtonText: 'Buy'
-        })
-        .then(({value}) => {
-            this.$store.dispatch('createOrder', {
-                quantity: Number(value),
-                ProductId: Number(this.product.id)
-            });
-            this.$store.dispatch('fetchProducts');
-        })
-        .catch(err => console.log(err.errors))
+        if(this.product.stock < 1){
+            swal.fire({
+            icon: 'error',
+            title: 'Sorry :(',
+            text: 'Product isn\'t available.'
+          })
+        } else {
+            swal.fire({
+                title: this.product.name,
+                text: this.priceString(this.product),
+                imageUrl: this.product.image_url,
+                imageWidth: 200,
+                imageHeight: 200,
+                imageAlt: this.product.name,
+                input: 'text',
+                inputValue: 1,
+                confirmButtonText: 'Buy'
+            })
+            .then(({value}) => {
+                this.$store.dispatch('createOrder', {
+                    quantity: Number(value),
+                    ProductId: Number(this.product.id)
+                });
+                this.$store.dispatch('fetchProducts');
+            })
+            .catch(err => console.log(err.errors))
+        }
       },
       priceString(product) {
         let price = String(product.price);
