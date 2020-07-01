@@ -1,5 +1,6 @@
 <template>
-    <form @submit.prevent="loginUser">
+    <form @submit.prevent="loginUser" class="mt-3">
+      <h2 class="text-center mb-3">Login to continue</h2>
         <div class="form-group">
             <input type="email" class="form-control" v-model="email" placeholder="Enter email">
         </div>

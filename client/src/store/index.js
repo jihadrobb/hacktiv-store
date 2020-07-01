@@ -13,6 +13,7 @@ export default new Vuex.Store({
     orders: [],
     product: {},
     history: [],
+    isLoggedIn: false,
   },
   mutations: {
     SET_PRODUCTS(state, prods) {
@@ -26,10 +27,13 @@ export default new Vuex.Store({
     },
     SET_HISTORY(state, hist) {
       state.history = hist;
+    },
+    SET_LOGIN(state, login) {
+      state.isLoggedIn = login;
     }
   },
   actions: {
-    login(state, payload) {
+    login(context, payload) {
       axios({
         method: 'post',
         url: `${this.state.baseUrl}/login`,
@@ -40,6 +44,7 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           localStorage.setItem('token', data.token);
+          context.commit('SET_LOGIN', true);
           return swal.fire({
             icon: 'success',
             title: 'Login Success',
@@ -58,7 +63,18 @@ export default new Vuex.Store({
           })
         });
     },
-    register(state, payload) {
+    logout(context, payload) {
+      swal.fire({
+        icon: 'success',
+        title: 'Logged out',
+        showConfirmButton: false,
+        timer: 1500
+      })
+        context.commit('SET_LOGIN', false);
+        localStorage.removeItem('token');
+        router.push({ path: '/login' });
+    },
+    register(context, payload) {
       axios({
         method: 'post',
         url: `${this.state.baseUrl}/register`,
@@ -77,14 +93,14 @@ export default new Vuex.Store({
           router.push({ path: '/login' });
         })
     },
-    fetchProducts() {
+    fetchProducts(context, payload) {
       axios({
         method: 'get',
         url: `${this.state.baseUrl}/products`,
         headers: { token: localStorage.token },
       })
         .then(({ data }) => {
-          this.commit('SET_PRODUCTS', data);
+          context.commit('SET_PRODUCTS', data);
         })
         .catch(err => {
           swal.fire({
@@ -93,14 +109,14 @@ export default new Vuex.Store({
           })
         })
     },
-    fetchOneProduct(state, payload) {
+    fetchOneProduct(context, payload) {
       axios({
         method: 'get',
         url: `${this.state.baseUrl}/products/${payload.id}`,
         headers: { token: localStorage.token }
       })
         .then(({data}) => {
-          this.commit('SET_PRODUCT', data);
+          context.commit('SET_PRODUCT', data);
         })
         .catch(err => {
           swal.fire({
@@ -134,7 +150,7 @@ export default new Vuex.Store({
           })
         })
     },
-    fetchOrder(state, payload) {
+    fetchOrder(context, payload) {
       axios({
         method: 'get',
         url: `${this.state.baseUrl}/orders`,
@@ -142,7 +158,7 @@ export default new Vuex.Store({
       })
         .then(({data}) => {
           // console.log(data, ' <<< order');
-          this.commit('SET_ORDERS', data);
+          context.commit('SET_ORDERS', data);
         })
         .catch(err => {
           swal.fire({
@@ -171,37 +187,44 @@ export default new Vuex.Store({
           })
         })
     },
-    checkout() {
-      axios({
-        method: 'get',
-        url: `${this.state.baseUrl}/checkout`,
-        headers: { token: localStorage.token }
-      })
-      .then( _ => {
-        swal.fire({
-          title: 'Sweet!',
-          imageUrl: 'https://i.ebayimg.com/images/g/KAcAAOSwR6RZ8jxE/s-l400.jpg',
-          imageWidth: 400,
-          imageHeight: 400,
-          text: 'We hope to see you again in near future'
-        })
-        router.push({ path: '/' });
-      })
-      .catch(err => {
+    checkout(context, payload) {
+      if(this.state.orders.length === 0) {
         swal.fire({
           icon: 'error',
-          title: err.response.data.message
+          title: 'You dont have any orders',
         })
-      })
+      } else {
+        axios({
+          method: 'get',
+          url: `${this.state.baseUrl}/checkout`,
+          headers: { token: localStorage.token }
+        })
+        .then( _ => {
+          swal.fire({
+            title: 'Sweet!',
+            imageUrl: 'https://i.ebayimg.com/images/g/KAcAAOSwR6RZ8jxE/s-l400.jpg',
+            imageWidth: 400,
+            imageHeight: 400,
+            text: 'We hope to see you again in near future'
+          })
+          router.push({ path: '/' });
+        })
+        .catch(err => {
+          swal.fire({
+            icon: 'error',
+            title: err.response.data.message
+          })
+        })
+      }
     },
-    fetchHistory() {
+    fetchHistory(context, payload) {
       axios({
         method: 'get',
         url: `${this.state.baseUrl}/history`,
         headers: { token: localStorage.token }
       })
         .then(({ data }) => {
-          this.commit('SET_HISTORY', data);
+          context.commit('SET_HISTORY', data);
         })
         .catch(err => {
           swal.fire({

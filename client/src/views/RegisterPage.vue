@@ -1,5 +1,6 @@
 <template>
-    <form @submit.prevent="registerUser">
+    <form @submit.prevent="registerUser" class="mt-3">
+      <h2 class="text-center mb-3">Register a new User</h2>
         <div class="form-group">
             <input type="email" class="form-control" v-model="email" placeholder="Enter email">
         </div>
@@ -9,8 +10,8 @@
         <div class="form-group">
             <input type="password" class="form-control" v-model="password2" placeholder="Password Confirmation">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="button" class="btn btn-danger" @click="toLogin">Cancel</button>
+        <button type="submit" class="btn btn-success">Sign Up</button>
+        <button type="button" class="btn btn-danger mx-2" @click="toLogin">Cancel</button>
     </form>
 </template>
 

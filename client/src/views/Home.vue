@@ -1,7 +1,6 @@
 <template>
   <div class="home">
-    <button class="btn btn-danger" @click="logout">Logout</button>
-    <div class="row card-group">
+    <div class="row d-flex justify-content-center">
       <ProductCard v-for="product in $store.state.products" :key="product.id" :product="product" />
     </div>
   </div>
