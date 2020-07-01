@@ -1,8 +1,8 @@
 const { Order, Product } = require('../models');
 class Controller {
     static add(req, res, next) {
-        let erors = []
         if(!req.body.quantity || !req.body.ProductId){
+            let errors = [];
             if(!req.body.ProductId) errors.push('Please input ProductId');
             if(!req.body.quantity) errors.push('Please input quantity');
             next({ name: 'SequelizeValidationError', errors });
@@ -50,13 +50,17 @@ class Controller {
             .catch(err => next(err));
         }
     }
-        static list(req, res, next) {
-            Order.findAll({ where: { 
+    static list(req, res, next) {
+        Order.findAll({ where: 
+            { 
                 UserId: req.userData.id,
                 paid: false
-            }})
-            .then(data => {
-                res.status(200).json(data);
+            }, 
+            include: [Product],
+            order: [ ['id', 'ASC'] ]
+        })
+        .then(data => {
+            res.status(200).json(data);
         })
         .catch(err => next(err));
     }
