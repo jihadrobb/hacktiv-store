@@ -1,4 +1,5 @@
 <template>
+  <div class="container">
     <form @submit.prevent="registerUser" class="mt-3">
       <h2 class="text-center mb-3">Register a new User</h2>
         <div class="form-group">
@@ -13,6 +14,7 @@
         <button type="submit" class="btn btn-success">Sign Up</button>
         <button type="button" class="btn btn-danger mx-2" @click="toLogin">Cancel</button>
     </form>
+  </div>
 </template>
 
 <script>
@@ -31,9 +33,9 @@ export default {
     registerUser() {
       if(this.password !== this.password2) {
         swal.fire({
-            icon: 'warning',
-            title: 'Oops...',
-            text: 'Password dont match'
+          icon: 'warning',
+          title: 'Oops...',
+          text: 'Password dont match'
         })
         this.password = '';
         this.password2 = '';

@@ -1,4 +1,5 @@
 <template>
+  <div class="container">
     <form @submit.prevent="loginUser" class="mt-3">
       <h2 class="text-center mb-3">Login to continue</h2>
         <div class="form-group">
@@ -10,6 +11,7 @@
         <small>Dont have account? click <a href="" @click="toRegister">here</a> to register!</small><br>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+  </div>
 </template>
 
 <script>
