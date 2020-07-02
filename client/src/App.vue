@@ -35,6 +35,11 @@ export default {
       this.$store.dispatch('logout');
     },
   },
+  created() {
+    if(localStorage.token) {
+      this.$store.dispatch('setLogin', { login: true });
+    }
+  }
 }
 </script>
 

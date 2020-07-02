@@ -63,6 +63,9 @@ export default new Vuex.Store({
           })
         });
     },
+    setLogin(context, payload) {
+      context.commit('SET_LOGIN', payload.login);
+    },
     logout(context, payload) {
       swal.fire({
         icon: 'success',

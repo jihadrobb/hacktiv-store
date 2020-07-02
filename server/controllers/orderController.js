@@ -1,4 +1,5 @@
 const { Order, Product } = require('../models');
+const bull = require('bull');
 class Controller {
     static add(req, res, next) {
         if(!req.body.quantity || !req.body.ProductId){
@@ -89,6 +90,9 @@ class Controller {
             res.status(200).json({ message: 'Order deleted' });
         })
         .catch(err => next(err));
+    }
+    static bullFunction(req, res, next) {
+        
     }
 }
 module.exports = Controller;
