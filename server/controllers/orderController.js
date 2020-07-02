@@ -1,7 +1,9 @@
 const { Order, Product } = require('../models');
 const bull = require('bull');
+const CronJob = require('cron').CronJob;
 class Controller {
     static add(req, res, next) {
+        // console.log(req.body, '<<<< ini req body')
         if(!req.body.quantity || !req.body.ProductId){
             let errors = [];
             if(!req.body.ProductId) errors.push('Please input ProductId');
@@ -42,6 +44,9 @@ class Controller {
                 }
             })
             .then(data => {
+                //manggil si bull set timer 30 min
+                req.idOrder = data.id;
+                Controller.cronDelete(req, res, next);
                 if(Array.isArray(data)){
                     res.status(200).json(data[1]);
                 } else {
@@ -91,8 +96,32 @@ class Controller {
         })
         .catch(err => next(err));
     }
-    static bullFunction(req, res, next) {
-        
+    static cronDelete(req, res, next) {
+        const job = new CronJob('* */30 * * * *', function() {
+            if(req.idOrder) {
+                console.log('tes jalan cron delete');
+                Controller.deleteWithCron(req, res, next);
+            }
+        }, null, true, 'Asia/Jakarta');
+    }
+    static deleteWithCron(req, res, next) {
+        Product.findByPk(req.body.ProductId)
+          .then(data => {
+              if(!data) {
+                  throw { name: 'DataNotFound' };
+              } else {
+                  return Product.update({
+                    stock: Number(data.stock) + Number(req.body.quantity)
+                  }, { where: { id: req.body.ProductId }})
+              }
+          })
+          .then( _ => {
+              return Order.destroy({ where: { id: req.idOrder }})
+          })
+          .then( _ => {
+              req.idOrder = null;
+          })
+          .catch(err => next(err));
     }
 }
 module.exports = Controller;

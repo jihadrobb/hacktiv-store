@@ -143,6 +143,7 @@ export default new Vuex.Store({
           swal.fire({
             icon: 'success',
             title: 'Order added to cart',
+            text: 'Order will be deleted in 30 minutes, please checkout before then'
           })
           context.dispatch('fetchProducts');
         })
