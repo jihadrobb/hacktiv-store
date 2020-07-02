@@ -13,7 +13,15 @@ module.exports = {
         updatedAt: new Date()
       }, 
       {
-        name: 'Jersey Juventus',
+        name: 'Jersey Juventus Home',
+        image_url: 'https://ecs7.tokopedia.net/img/cache/700/product-1/2019/10/24/4089528/4089528_10a06a00-1f01-41dc-9481-9291dd0a7749_1500_1500.jpg',
+        price: 350000,
+        stock: 100,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        name: 'Jersey Juventus Pink',
         image_url: 'https://ecs7.tokopedia.net/img/cache/700/product-1/2018/8/3/3792496/3792496_2c064482-6476-4db3-9255-d80f8cac10f8.jpg',
         price: 300000,
         stock: 10,
@@ -22,7 +30,7 @@ module.exports = {
       },
       {
         name: 'Jersey Liverpool Merah',
-        image_url: 'https://ecs7.tokopedia.net/img/cache/700/product-1/2019/10/24/4719358/4719358_6475f206-5e34-42b1-bd77-d4a04b618a41.png',
+        image_url: 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/medium//94/MTA-4584306/kick-somnia_kick-somnia_liverpool_home_jersey_2019-2020_full01_h33xw4cb.jpg',
         price: 500000,
         stock: 50,
         createdAt: new Date(),
@@ -46,7 +54,7 @@ module.exports = {
       },
       {
         name: 'Jersey Manchester United',
-        image_url: 'https://cf.shopee.co.id/file/1d62d9395dd1f2cf3b0c04495bc54ee9',
+        image_url: 'https://www.jsfootballcollection.com.my/wp-content/uploads/mu-home-pi-01-600x600.jpg',
         price: 400000,
         stock: 100,
         createdAt: new Date(),
@@ -54,7 +62,7 @@ module.exports = {
       },
       {
         name: 'Jersey Barcelona Home',
-        image_url: 'https://diamu.com.bd/wp-content/uploads/2019/06/fc-barcelona-home-jersey.jpg',
+        image_url: 'https://myluckyjersey.com/wp-content/uploads/2019/06/done-11.png',
         price: 550000,
         stock: 50,
         createdAt: new Date(),
@@ -77,18 +85,34 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        name: 'Jersey Merah Ori',
-        image_url: 'https://cf.shopee.co.id/file/290f0e06132b163ca4ef2ef93492b900',
-        price: 150000,
-        stock: 200,
+        name: 'Jersey Paris Saint Germain',
+        image_url: 'https://www.soccerpro.com/wp-content/uploads/aj5817_411_nike_y_psg_home_jsy_2019_20_01.jpg',
+        price: 300000,
+        stock: 50,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        name: 'Jersey Putih Ori',
-        image_url: 'https://cf.shopee.co.id/file/8b940f652ba4b64898fc89d817f209de',
-        price: 150000,
-        stock: 200,
+        name: 'Jersey Atletico Madrid',
+        image_url: 'https://d2lhrgc5rek5ye.cloudfront.net/pub/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/a/j/aj5523-612_image.jpeg',
+        price: 300000,
+        stock: 30,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        name: 'Jersey Atletico Madrid Hitam',
+        image_url: 'https://images.sportsdirect.com/images/products/37725444_l.jpg',
+        price: 250000,
+        stock: 60,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        name: 'Jersey Manchester City',
+        image_url: 'https://ncrsport.com/img/storage/large/847261-489-1.jpg',
+        price: 300000,
+        stock: 60,
         createdAt: new Date(),
         updatedAt: new Date()
       },
