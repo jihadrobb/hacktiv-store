@@ -100,7 +100,13 @@ class Controller {
         const job = new CronJob('* */30 * * * *', function() {
             if(req.idOrder) {
                 console.log('tes jalan cron delete');
-                Controller.deleteWithCron(req, res, next);
+                Order.findByPk(req.idOrder)
+                  .then(data => {
+                      if(data.paid === false) {
+                        Controller.deleteWithCron(req, res, next);
+                      }
+                  })
+                  .catch(err => console.log(err));
             }
         }, null, true, 'Asia/Jakarta');
     }
